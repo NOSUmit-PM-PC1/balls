@@ -28,37 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.buttonPause = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // buttonPause
+            // 
+            this.buttonPause.Location = new System.Drawing.Point(611, 37);
+            this.buttonPause.Name = "buttonPause";
+            this.buttonPause.Size = new System.Drawing.Size(95, 39);
+            this.buttonPause.TabIndex = 0;
+            this.buttonPause.Text = "пауза";
+            this.buttonPause.UseVisualStyleBackColor = true;
+            this.buttonPause.Click += new System.EventHandler(this.buttonPause_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(545, 72);
+            this.button1.Location = new System.Drawing.Point(27, 37);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(99, 45);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
+            this.button1.Size = new System.Drawing.Size(221, 39);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "пауза через static";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(545, 140);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(99, 39);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // FormGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonPause);
             this.Name = "FormGame";
             this.Text = "Form1";
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormGame_MouseDown);
@@ -68,8 +68,8 @@
 
         #endregion
 
+        private System.Windows.Forms.Button buttonPause;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
     }
 }
 

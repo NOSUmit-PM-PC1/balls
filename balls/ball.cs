@@ -7,6 +7,7 @@ using System.Windows.Forms;
 
 namespace balls
 {
+    // неподвижные шарики
     class Ball:PictureBox
     {
         protected double x, y;
@@ -35,11 +36,15 @@ namespace balls
         }
     }
 
+    // летающие шарики
     class FlyBall : Ball
     {
-        double vx = 5, vy = 5;
+        static public bool pause_all = true;
+
+        protected double vx = 5, vy = 5;
         Timer t;
-        
+        bool pause = false;
+        public FlyBall() { }
         public FlyBall(Form owner):base(owner)
         {
             t = new Timer();
@@ -50,7 +55,7 @@ namespace balls
 
         private void T_Tick(object sender, EventArgs e)
         {
-            this.Move();
+            this.MoveBall();
             this.Show();
         }
 
@@ -67,10 +72,84 @@ namespace balls
             this.vy = rnd.Next(min, max);
         }
 
-        public void Move()
+        public virtual void MoveBall()
         {
             x = x + vx;
             y = y + vy;
+        }
+
+        public void Stop() { t.Enabled = false; }
+        public void Start() { t.Enabled = true; }
+        public void Pause()
+        {
+            if (pause) Start();
+            else Stop();
+            pause = !pause;
+        }
+    }
+
+    // шарики отскакивающие от стены
+    class PoolBall : FlyBall
+    {
+        int wight, height;
+       
+        public PoolBall(Form owner) : base(owner)
+        {
+            wight = owner.ClientSize.Width;
+            height = owner.ClientSize.Height;
+        }
+
+        public override void MoveBall()
+        {
+            base.MoveBall();
+            if (x <= radius) vx = -vx;
+            if (y <= radius) vy = -vy;
+            if (y >= height - radius) vy = -vy;
+            if (x >= wight - radius) vx = -vx;
+        }
+
+    
+    }
+
+    // много шариков
+    class IdealGas
+    {
+        List<FlyBall> listBalls;
+
+        public IdealGas()
+        {
+            listBalls = new List<FlyBall>();
+        }
+
+        public void Add(FlyBall a)
+        {
+            listBalls.Add(a);
+        }
+
+        public void Stop()
+        {
+            foreach (var a in listBalls)
+                a.Stop();
+
+        }
+        public void Start()
+        {
+            foreach (var a in listBalls)
+                a.Start();
+        }
+
+        public void Pause()
+        {
+            FlyBall.pause_all = !FlyBall.pause_all;
+            if (FlyBall.pause_all)
+            {
+                Start();
+            }
+            else
+            {
+                Stop();
+            }
+            
         }
     }
 }

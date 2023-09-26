@@ -12,35 +12,49 @@ namespace balls
 {
     public partial class FormGame : Form
     {
-        FlyBall b;
+        IdealGas gas = new IdealGas();
         public FormGame()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            b = new FlyBall(this);
-            
-            //Ball b = new Ball();
-            //this.Controls.Add(b);
-
-            b.Show();
-        }
-
         private void FormGame_MouseDown(object sender, MouseEventArgs e)
         {
-
-            FlyBall a = new FlyBall(this);    
-            a.SetPosition(e.X, e.Y);
-            a.SetRandomSpeed(-5, 5);
-            a.Show();
+            if (e.Button == MouseButtons.Left)
+            {
+                FlyBall a = new FlyBall(this);
+                a.SetPosition(e.X, e.Y);
+                a.SetRandomSpeed(-5, 5);
+                a.Show();
+                gas.Add(a);
+            }
+            else
+            {
+                PoolBall a = new PoolBall(this);
+                a.SetPosition(e.X, e.Y);
+                a.SetRandomSpeed(-5, 5);
+                a.Show();
+                gas.Add(a);
+            }
+            
+        }
+               
+        private void buttonPause_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //foreach(var a in listBalls)
+                //    a.Pause();
+            }
+            catch
+            {
+                MessageBox.Show("Нажми правую кнопку мыши для создания шарика");
+            }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            b.Move();
-            b.Show();
+            gas.Pause();
         }
     }
 }
